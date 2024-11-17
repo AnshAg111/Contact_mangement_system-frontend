@@ -8,10 +8,12 @@ const CreateContact = () => {
   const { toast } = useContext(ToastContext);
 
   const [userDetails, setUserDetails] = useState({
-    name: "",
-    address: "",
+    first_name: "",
+    last_name:"",
     email: "",
     phone: "",
+    company:"",
+    job_title:"",
   });
   const navigate = useNavigate();
 
@@ -34,9 +36,9 @@ const CreateContact = () => {
     });
     const result = await res.json();
     if (!result.error) {
-      toast.success(`Created [${userDetails.name}] contact`);
+      toast.success(`Created [${userDetails.first_name} ${userDetails.last_name}] contact`);
 
-      setUserDetails({ name: "", address: "", email: "", phone: "" });
+      setUserDetails({ first_name: "", last_name: "", email: "", phone: "", company:"", job_title:"" });
     } else {
       toast.error(result.error);
     }
@@ -48,38 +50,38 @@ const CreateContact = () => {
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="nameInput" className="form-label mt-4">
-            Name Of Person
+          <label htmlFor="first_name" className="form-label mt-4">
+            First Name
           </label>
           <input
             type="text"
             className="form-control"
-            id="nameInput"
+            id="first_name"
             name="name"
-            value={userDetails.name}
+            value={userDetails.first_name}
             onChange={handleInputChange}
-            placeholder="John Doe"
+            placeholder="John"
             required
           />
         </div>
         <div className="form-group">
-          <label htmlFor="addressInput" className="form-label mt-4">
-            Address Of Person
+          <label htmlFor="last_name" className="form-label mt-4">
+            Last Name
           </label>
           <input
             type="text"
             className="form-control"
-            id="addressInput"
-            name="address"
-            value={userDetails.address}
+            id="last_name"
+            name="name"
+            value={userDetails.last_name}
             onChange={handleInputChange}
-            placeholder="WalkStreet 05, California"
+            placeholder="Doe"
             required
           />
         </div>
         <div className="form-group">
           <label htmlFor="emailInput" className="form-label mt-4">
-            Email Of Person
+            Email
           </label>
           <input
             type="email"
@@ -94,7 +96,7 @@ const CreateContact = () => {
         </div>
         <div className="form-group">
           <label htmlFor="phoneInput" className="form-label mt-4">
-            Phone Number Of Person
+            Phone Number
           </label>
           <input
             type="number"
@@ -104,6 +106,36 @@ const CreateContact = () => {
             value={userDetails.phone}
             onChange={handleInputChange}
             placeholder="+977 987654321"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="company" className="form-label mt-4">
+            Company
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="company"
+            name="company"
+            value={userDetails.company}
+            onChange={handleInputChange}
+            placeholder="your current company..."
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="job_title" className="form-label mt-4">
+            Job title
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="job_title"
+            name="job_title"
+            value={userDetails.job_title}
+            onChange={handleInputChange}
+            placeholder="e.g. Analyst, Content creator, Web developer, etc."
             required
           />
         </div>

@@ -12,10 +12,12 @@ const EditContact = () => {
   const { toast } = useContext(ToastContext);
 
   const [userDetails, setUserDetails] = useState({
-    name: "",
-    address: "",
+    first_name: "",
+    last_name:"",
     email: "",
     phone: "",
+    company:"",
+    job_title:"",
   });
   const [loading, setLoading] = useState(false);
 
@@ -38,9 +40,9 @@ const EditContact = () => {
     });
     const result = await res.json();
     if (!result.error) {
-      toast.success(`updated [${userDetails.name}] contact`);
+      toast.success(`updated [${userDetails.first_name} ${userDetails.last_name}] contact`);
 
-      setUserDetails({ name: "", address: "", email: "", phone: "" });
+      setUserDetails({ first_name: "", last_name: "", email: "", phone: "", company:"", job_title:"" });
       navigate("/mycontacts");
     } else {
       toast.error(result.error);
@@ -58,10 +60,12 @@ const EditContact = () => {
       });
       const result = await res.json();
       setUserDetails({
-        name: result.name,
+        first_name: result.first_name,
+        last_name: result.last_name,
         email: result.email,
-        address: result.address,
         phone: result.phone,
+        company: result.company,
+        job_title: result.job_title,
       });
       setLoading(false);
     } catch (err) {
@@ -78,66 +82,96 @@ const EditContact = () => {
           <h2>Edit your contact</h2>
 
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="nameInput" className="form-label mt-4">
-                Name Of Person
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="nameInput"
-                name="name"
-                value={userDetails.name}
-                onChange={handleInputChange}
-                placeholder="John Doe"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="addressInput" className="form-label mt-4">
-                Address Of Person
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="addressInput"
-                name="address"
-                value={userDetails.address}
-                onChange={handleInputChange}
-                placeholder="WalkStreet 05, California"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="emailInput" className="form-label mt-4">
-                Email Of Person
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="emailInput"
-                name="email"
-                value={userDetails.email}
-                onChange={handleInputChange}
-                placeholder="johndoe@example.com"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phoneInput" className="form-label mt-4">
-                Phone Number Of Person
-              </label>
-              <input
-                type="number"
-                className="form-control"
-                id="phoneInput"
-                name="phone"
-                value={userDetails.phone}
-                onChange={handleInputChange}
-                placeholder="+977 987654321"
-                required
-              />
-            </div>
+          <div className="form-group">
+          <label htmlFor="first_name" className="form-label mt-4">
+            First Name
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="first_name"
+            name="name"
+            value={userDetails.first_name}
+            onChange={handleInputChange}
+            placeholder="John"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="last_name" className="form-label mt-4">
+            Last Name
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="last_name"
+            name="name"
+            value={userDetails.last_name}
+            onChange={handleInputChange}
+            placeholder="Doe"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="emailInput" className="form-label mt-4">
+            Email
+          </label>
+          <input
+            type="email"
+            className="form-control"
+            id="emailInput"
+            name="email"
+            value={userDetails.email}
+            onChange={handleInputChange}
+            placeholder="johndoe@example.com"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="phoneInput" className="form-label mt-4">
+            Phone Number
+          </label>
+          <input
+            type="number"
+            className="form-control"
+            id="phoneInput"
+            name="phone"
+            value={userDetails.phone}
+            onChange={handleInputChange}
+            placeholder="+977 987654321"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="company" className="form-label mt-4">
+            Company
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="company"
+            name="company"
+            value={userDetails.company}
+            onChange={handleInputChange}
+            placeholder="your current company..."
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="job_title" className="form-label mt-4">
+            Job title
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="job_title"
+            name="job_title"
+            value={userDetails.job_title}
+            onChange={handleInputChange}
+            placeholder="e.g. Analyst, Content creator, Web developer, etc."
+            required
+          />
+        </div>
             <input
               type="submit"
               value="Save Changes"

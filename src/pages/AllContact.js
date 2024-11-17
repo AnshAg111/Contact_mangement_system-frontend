@@ -105,10 +105,12 @@ const AllContact = () => {
                 <table className="table table-hover">
                   <thead>
                     <tr className="table-dark">
-                      <th scope="col">Name</th>
-                      <th scope="col">Address</th>
+                      <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
                       <th scope="col">Email</th>
                       <th scope="col">Phone</th>
+                      <th scope="col">Company</th>
+                      <th scope="col">Job title</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -121,10 +123,12 @@ const AllContact = () => {
                           setShowModal(true);
                         }}
                       >
-                        <th scope="row">{contact.name}</th>
-                        <td>{contact.address}</td>
+                        <td>{contact.first_name}</td>
+                        <td>{contact.last_name}</td>
                         <td>{contact.email}</td>
                         <td>{contact.phone}</td>
+                        <td>{contact.company}</td>
+                        <td>{contact.job_title}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -141,15 +145,23 @@ const AllContact = () => {
         </Modal.Header>
 
         <Modal.Body>
-          <h3>{modalData.name}</h3>
+        <p>
+            <strong>First Name</strong>: {modalData.first_name}
+          </p>
           <p>
-            <strong>Address</strong>: {modalData.address}
+            <strong>Last Name</strong>: {modalData.last_name}
           </p>
           <p>
             <strong>Email</strong>: {modalData.email}
           </p>
           <p>
             <strong>Phone Number</strong>: {modalData.phone}
+          </p>
+          <p>
+            <strong>Company</strong>: {modalData.company}
+          </p>
+          <p>
+            <strong>Job title</strong>: {modalData.job_title}
           </p>
         </Modal.Body>
 
