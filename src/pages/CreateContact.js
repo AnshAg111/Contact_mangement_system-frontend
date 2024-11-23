@@ -1,31 +1,30 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import ToastContext from "../context/ToastContext";
+import { TextField, Button, Box, Typography, Container } from "@mui/material";
+import Grid from '@mui/material/Grid2';
 
 const CreateContact = () => {
-  const { user } = useContext(AuthContext);
   const { toast } = useContext(ToastContext);
-
   const [userDetails, setUserDetails] = useState({
     first_name: "",
-    last_name:"",
+    last_name: "",
     email: "",
     phone: "",
-    company:"",
-    job_title:"",
+    company: "",
+    job_title: "",
   });
+
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-
     setUserDetails({ ...userDetails, [name]: value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const res = await fetch(`http://localhost:8000/api/contact`, {
       method: "POST",
       headers: {
@@ -37,115 +36,116 @@ const CreateContact = () => {
     const result = await res.json();
     if (!result.error) {
       toast.success(`Created [${userDetails.first_name} ${userDetails.last_name}] contact`);
-
-      setUserDetails({ first_name: "", last_name: "", email: "", phone: "", company:"", job_title:"" });
+      setUserDetails({ first_name: "", last_name: "", email: "", phone: "", company: "", job_title: "" });
+      navigate("/contacts"); // Redirect to contact list or another page
     } else {
       toast.error(result.error);
     }
   };
 
   return (
-    <>
-      <h2>Create your contact</h2>
-
+    <Container maxWidth="sm">
+      <Box sx={{ textAlign: "center", my: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Create New Contact
+        </Typography>
+      </Box>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="first_name" className="form-label mt-4">
-            First Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="first_name"
-            name="name"
-            value={userDetails.first_name}
-            onChange={handleInputChange}
-            placeholder="John"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="last_name" className="form-label mt-4">
-            Last Name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="last_name"
-            name="name"
-            value={userDetails.last_name}
-            onChange={handleInputChange}
-            placeholder="Doe"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="emailInput" className="form-label mt-4">
-            Email
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="emailInput"
-            name="email"
-            value={userDetails.email}
-            onChange={handleInputChange}
-            placeholder="johndoe@example.com"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="phoneInput" className="form-label mt-4">
-            Phone Number
-          </label>
-          <input
-            type="number"
-            className="form-control"
-            id="phoneInput"
-            name="phone"
-            value={userDetails.phone}
-            onChange={handleInputChange}
-            placeholder="+977 987654321"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="company" className="form-label mt-4">
-            Company
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="company"
-            name="company"
-            value={userDetails.company}
-            onChange={handleInputChange}
-            placeholder="your current company..."
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="job_title" className="form-label mt-4">
-            Job title
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="job_title"
-            name="job_title"
-            value={userDetails.job_title}
-            onChange={handleInputChange}
-            placeholder="e.g. Analyst, Content creator, Web developer, etc."
-            required
-          />
-        </div>
-        <input
-          type="submit"
-          value="Add Contact"
-          className="btn btn-info my-2"
-        />
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              id="first_name"
+              name="first_name"
+              label="First Name"
+              variant="outlined"
+              value={userDetails.first_name}
+              onChange={handleInputChange}
+              placeholder="John"
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="last_name"
+              name="last_name"
+              label="Last Name"
+              variant="outlined"
+              value={userDetails.last_name}
+              onChange={handleInputChange}
+              placeholder="Doe"
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="email"
+              name="email"
+              label="Email"
+              type="email"
+              variant="outlined"
+              value={userDetails.email}
+              onChange={handleInputChange}
+              placeholder="johndoe@example.com"
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="phone"
+              name="phone"
+              label="Phone Number"
+              type="tel"
+              variant="outlined"
+              value={userDetails.phone}
+              onChange={handleInputChange}
+              placeholder="+977 987654321"
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="company"
+              name="company"
+              label="Company"
+              variant="outlined"
+              value={userDetails.company}
+              onChange={handleInputChange}
+              placeholder="Your current company..."
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="job_title"
+              name="job_title"
+              label="Job Title"
+              variant="outlined"
+              value={userDetails.job_title}
+              onChange={handleInputChange}
+              placeholder="e.g., Analyst, Content Creator, Web Developer"
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sx={{ textAlign: "center" }}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ mt: 2 }}
+            >
+              Add Contact
+            </Button>
+          </Grid>
+        </Grid>
       </form>
-    </>
+    </Container>
   );
 };
 

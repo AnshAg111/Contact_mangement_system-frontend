@@ -2,9 +2,29 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Project Description
+
+This is the frontend of a ReactJS application that serves as the user interface for managing contact information. It allows users to perform the following operations:
+
+Add new contacts.
+View and manage a list of contacts with sorting and pagination.
+Edit contact details.
+Delete contacts.
+Material-UI (MUI) is used for a consistent, responsive design, making the interface user-friendly.
+
+## Setup Instructions and Available Scripts
+
+### `git clone https://github.com/AnshAg111/Contact_mangement_system-frontend`  
+
+Clone the repository
+
+### cd frontend  
 
 In the project directory, you can run:
+
+### `yarn install'
+
+Install dependencies using yarn
 
 ### `yarn start`
 
@@ -68,3 +88,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+# How it works
+
+### Contact Form: 
+Allows users to input new contact details. All fields are validated.
+
+### Contacts Table: 
+Displays the list of all contacts with columns for each attribute, action buttons, and features like sorting and pagination.
+
+### Edit/Delete Actions: 
+Users can update or delete a contact directly from the table.
